@@ -21,7 +21,10 @@ pub fn scope() {
     println!("{}", received_s);
 
     // let ref_to_null = dangle();
-    let _s = no_dangle();
+    let mut s = no_dangle();
+    let slice = first_word(&s);
+    println!("{}", slice);
+    s.clear();
 } // Here, x goes out of scope, then s. But because s's value was moved, nothing
   // special happens.
 
@@ -56,7 +59,18 @@ fn change(some_string: &mut String) {
 // }
 
 fn no_dangle() -> String {
-    let s = String::from("hello");
-
+    let s = String::from("hello world");
     s
+}
+
+fn first_word(s: &String) -> &str {
+    let bytes = s.as_bytes();
+
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[0..i];
+        }
+    }
+
+    return &s[..]
 }

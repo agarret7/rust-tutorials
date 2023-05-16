@@ -4,6 +4,7 @@ mod chapter1;
 mod chapter2;
 mod chapter3;
 mod chapter4;
+mod chapter5;
 
 
 fn main() {
@@ -34,6 +35,8 @@ fn main() {
         println!("Fibonacci({n}) = {x}")
     } else if branch == 4 {
         chapter4::scope();
+    } else if branch == 5 {
+        let (_u1, _u2, _black, _origin) = chapter5::ready_up();
     } else {
         println!("Figure out how to make errors");
     }
