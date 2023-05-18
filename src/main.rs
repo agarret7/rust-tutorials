@@ -1,10 +1,7 @@
 use std::io;
 
-mod chapter1;
-mod chapter2;
-mod chapter3;
-mod chapter4;
-mod chapter5;
+mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5;
+mod chapter6;
 
 
 fn main() {
@@ -37,6 +34,13 @@ fn main() {
         chapter4::scope();
     } else if branch == 5 {
         let (_u1, _u2, _black, _origin) = chapter5::ready_up();
+    } else if branch == 6 {
+        let ip = chapter6::web_ready();
+        let msg = chapter6::Message::Write(String::from("hello"));
+        chapter6::route(&ip, msg);
+        let msg = chapter6::Message::Quit;
+        chapter6::route(&ip, msg);
+        chapter6::value_in_cents(chapter6::Coin::Quarter(chapter6::UsState::Arizona));
     } else {
         println!("Figure out how to make errors");
     }
