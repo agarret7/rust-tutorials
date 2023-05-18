@@ -39,8 +39,9 @@ pub fn route(ip: &IpAddr, msg: Message) {
 
 #[derive(Debug)] // so we can inspect the state in a minute
 pub enum UsState {
-    _Alabama,
     _Alaska,
+    _Tennessee,
+    Florida,
     Arizona,
 }
 
