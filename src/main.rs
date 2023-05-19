@@ -5,6 +5,7 @@
 use std::io;
 
 mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapter6;
+mod chapter8;
 
 use crate::garden::vegetables::Asparagus;
 
@@ -53,6 +54,31 @@ fn main() {
         let plant = Asparagus {};
         println!("I'm growing {:?}!", plant);
         rust_tutorials::customer::eat_at_restaurant();
+    } else if branch == 8 {
+        let row = chapter8::vectors();
+        println!("row: {:?}", row);
+        let str = chapter8::strings();
+        let hmap = chapter8::hash_maps();
+        for c in str.chars() {
+            println!("{c}");
+        }
+        for b in str.bytes() {
+            println!("{b}");
+        }
+        let v = vec![1, 5, 10, 2, 15];
+        let median = chapter8::median(&v);
+        println!("median: {}:", median.unwrap());
+        let v = vec![1, 5, 6, 6, 2, 8, 3, 7];
+        let median = chapter8::median(&v);
+        println!("median: {}:", median.unwrap());
+        let mode = chapter8::mode(&v);
+        println!("mode: {}:", mode.unwrap());
+
+        let v = vec![];
+        let mode = chapter8::mode(&v);
+
+        // this would panic, so we comment it out.
+        // println!("mode: {}:", mode.unwrap());
     } else {
         println!("Unknown chapter: {}. Exiting", branch);
     }
