@@ -1,4 +1,4 @@
-use std::collections::HashMap;
+use std::{io, collections::HashMap};
 
 #[derive(Debug)]
 pub enum SpreadsheetCell {
@@ -145,22 +145,77 @@ pub fn mode(v: &Vec<i32>) -> Option<i32> {
         let count = map.entry(x).or_insert(0);
         *count += 1;
     }
-    // dbg!(map);
 
-    for (key, value) in &map {
+    for (&key, &value) in &map {
         println!("{key}: {value}");
         match mode {
             None => {
-                let mode = Some(key);
-                let mode_count = value;
+                mode = Some(*key);
+                mode_count = value;
             },
-            Some(mode) => {
-                if value > &mode_count {
-                    let mode = Some(key);
-                    let mode_count = value;
+            Some(_) => {
+                if value > mode_count {
+                    mode = Some(*key);
+                    mode_count = value;
                 }
             },
         }
     }
     mode
+}
+
+const VOWELS: [char; 10] =
+    ['a', 'e', 'i', 'o', 'u',
+     'A', 'E', 'I', 'O', 'U'];
+
+pub fn to_pig_latin(s: &str) -> String {
+    if s.len() == 0 { return s.to_string(); }
+    let first = &s[0..1];
+    let s = &s[1..];
+    if VOWELS.contains(&first.chars().next().expect("should never get here")) {
+        return format!("{first}{s}-hay");
+    } else {
+        return format!("{s}-{first}ay");
+    }
+}
+
+
+pub fn hiring_manager(company: &mut HashMap<String,Vec<String>>) -> &mut HashMap<String,Vec<String>> {
+    loop {
+        let mut instruction = String::new();
+
+        io::stdin()
+            .read_line(&mut instruction)
+            .expect("Failed to read line");
+
+        let instruction: String = match instruction
+            .trim()
+            .parse() {
+                Ok(s) => s,
+                Err(_) => continue,
+        };
+
+        if instruction.len() == 0 {
+            break;
+        }
+
+        let mut words = instruction.split(" ");
+        assert_eq!(words.next().expect("expected \"Add\""), "Add");
+        let person = &words.next().expect("expected person");
+        let person = person.to_string();
+        assert_eq!(words.next().expect("expected \"to\""), "to");
+        let department = &words.next().expect("expected department");
+        let department = department.to_string();
+
+        let members = company.entry(department).or_insert(Vec::new());
+        members.push(person);
+    }
+    company
+}
+
+pub fn sort_departments(company: &mut HashMap<String,Vec<String>>) -> &mut HashMap<String,Vec<String>> {
+    for members in company.values_mut() {
+        members.sort_by(|a, b| a.to_lowercase().cmp(&b.to_lowercase()));
+    }
+    company
 }

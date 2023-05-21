@@ -2,10 +2,10 @@
 // Thanks to Steve Klabnik and Carol Nichols, and the Rust Community for a very enjoyable learning experience
 
 
-use std::io;
+use std::{io, collections::HashMap};
 
 mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapter6;
-mod chapter8;
+mod chapter8; mod chapter9;
 
 use crate::garden::vegetables::Asparagus;
 
@@ -65,21 +65,63 @@ fn main() {
         for b in str.bytes() {
             println!("{b}");
         }
+
+        // Exercise 1
+        // Given a list of integers, use a vector and return the median
+        // (when sorted, the value in the middle position) and mode
+        // (the value that occurs most often; a hash map will be helpful here) of the list.
         let v = vec![1, 5, 10, 2, 15];
         let median = chapter8::median(&v);
-        println!("median: {}:", median.unwrap());
+        println!("median: {}", median.unwrap());
         let v = vec![1, 5, 6, 6, 2, 8, 3, 7];
         let median = chapter8::median(&v);
-        println!("median: {}:", median.unwrap());
+        println!("median: {}", median.unwrap());
         let mode = chapter8::mode(&v);
-        println!("mode: {}:", mode.unwrap());
+        println!("mode: {}", mode.unwrap());
 
         let v = vec![];
         let mode = chapter8::mode(&v);
 
         // this would panic, so we comment it out.
         // println!("mode: {}:", mode.unwrap());
+
+        // Exercise 2
+        // Convert strings to pig latin. The first consonant of each word is moved
+        // to the end of the word and “ay” is added, so “first” becomes “irst-fay.”
+        // Words that start with a vowel have “hay” added to the end instead (“apple”
+        // becomes “apple-hay”). Keep in mind the details about UTF-8 encoding!
+        let s = "first";
+        let pl = chapter8::to_pig_latin(&s);
+        println!("{}", pl);
+        let s = "apple";
+        let pl = chapter8::to_pig_latin(&s);
+        println!("{}", pl);
+
+        // Exercise 3
+        // Using a hash map and vectors, create a text interface to allow a user
+        // to add employee names to a department in a company. For example,
+        // “Add Sally to Engineering” or “Add Amir to Sales”. Then let the user
+        // retrieve a list of all people in a department or all people
+        // in the company by department, sorted alphabetically.
+        let mut company: HashMap<String,Vec<String>> = HashMap::new();
+        chapter8::hiring_manager(&mut company);
+        chapter8::sort_departments(&mut company);
+        for (department, members) in &company {
+            println!("HackerCo");
+            println!("--------");
+            print!("{}: ", department);
+            for person in members {
+                print!("{}, ", person);
+            }
+            print!("\n");
+        }
+    } else if branch == 9 {
+        // chapter9::one();
+        // chapter9::two();
+        chapter9::three();
+    } else if 1 <= branch && branch <= 20 {
+        println!("Unimplemented chapter: {}. Exiting.", branch);
     } else {
-        println!("Unknown chapter: {}. Exiting", branch);
+        panic!("Unknown chapter: {}", branch);
     }
 }
