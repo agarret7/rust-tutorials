@@ -7,8 +7,9 @@ mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapte
 mod chapter8; mod chapter9; mod chapter10;
 
 use crate::garden::vegetables::Asparagus;
+use aggregator::{Summary, Tweet, NewsArticle};
 
-pub mod garden;
+pub mod garden; pub mod aggregator;
 
 
 fn main() -> Result<(), String> {
@@ -127,6 +128,29 @@ fn main() -> Result<(), String> {
         println!("placeholder ip: {}", my_placeholder_ip);
     } else if branch == 10 {
         chapter10::main();
+        let tweet = Tweet {
+            username: String::from("horse_ebooks"),
+            content: String::from(
+                "of course, as you probably already know, people",
+            ),
+            reply: false,
+            retweet: false,
+        };
+        println!("1 new tweet: {}", tweet.summarize());
+
+        let article = NewsArticle {
+            headline: String::from("Penguins win the Stanley Cup Championship!"),
+            location: String::from("Pittsburgh, PA, USA"),
+            author: String::from("Iceburgh"),
+            content: String::from(
+                "The Pittsburgh Penguins once again are the best \
+                hockey team in the NHL.",
+            ),
+        };
+
+        println!("New article available! {}", article.summarize());
+
+        chapter10::main2();
     } else if 1 <= branch && branch <= 20 {
         println!("Unimplemented chapter: {}. Exiting.", branch);
     } else {
