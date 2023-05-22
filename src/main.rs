@@ -4,7 +4,7 @@
 use std::{io, collections::HashMap};
 
 mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapter6;
-mod chapter8; mod chapter9;
+mod chapter8; mod chapter9; mod chapter10;
 
 use crate::garden::vegetables::Asparagus;
 
@@ -125,6 +125,8 @@ fn main() -> Result<(), String> {
         let my_placeholder_ip = chapter9::placeholder_ip();
         println!("player: {}", my_username);
         println!("placeholder ip: {}", my_placeholder_ip);
+    } else if branch == 10 {
+        chapter10::main();
     } else if 1 <= branch && branch <= 20 {
         println!("Unimplemented chapter: {}. Exiting.", branch);
     } else {
