@@ -9,7 +9,7 @@ mod chapter8; mod chapter9; mod chapter10;
 use crate::garden::vegetables::Asparagus;
 use aggregator::{Summary, Tweet, NewsArticle};
 
-pub mod garden; pub mod aggregator;
+pub mod garden; pub mod aggregator; pub mod adder;
 
 
 fn main() -> Result<(), String> {
