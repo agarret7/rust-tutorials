@@ -6,10 +6,11 @@ use std::{io, collections::HashMap};
 mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapter6;
 mod chapter8; mod chapter9; mod chapter10;
 
+pub mod garden; pub mod aggregator;
+
 use crate::garden::vegetables::Asparagus;
 use aggregator::{Summary, Tweet, NewsArticle};
 
-pub mod garden; pub mod aggregator; pub mod adder;
 
 
 fn main() -> Result<(), String> {

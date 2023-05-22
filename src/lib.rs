@@ -1,5 +1,7 @@
 use std::io::{self, Write};
 
+pub mod adder;
+
 
 mod front_of_house;
 
