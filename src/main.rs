@@ -1,7 +1,6 @@
 // All code is simply copied from "the book": https://doc.rust-lang.org/stable/book/title-page.html
 // Thanks to Steve Klabnik and Carol Nichols, and the Rust Community for a very enjoyable learning experience
 
-
 use std::{io, collections::HashMap};
 
 mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapter6;
@@ -12,7 +11,7 @@ use crate::garden::vegetables::Asparagus;
 pub mod garden;
 
 
-fn main() {
+fn main() -> Result<(), String> {
     let mut inp_branch = String::new();
     println!("Input chapter to run: ");
     io::stdin()
@@ -119,9 +118,17 @@ fn main() {
         // chapter9::one();
         // chapter9::two();
         chapter9::three();
+        chapter9::four();
+        // todo: come back and write username "agarrett" to file
+        let my_username = chapter9::read_username_from_file().unwrap();
+        let c = chapter9::last_char_of_first_line("e-ai-e-ai-o");
+        let my_placeholder_ip = chapter9::placeholder_ip();
+        println!("player: {}", my_username);
+        println!("placeholder ip: {}", my_placeholder_ip);
     } else if 1 <= branch && branch <= 20 {
         println!("Unimplemented chapter: {}. Exiting.", branch);
     } else {
-        panic!("Unknown chapter: {}", branch);
+        return Err(format!("Unknown chapter: {}", branch));
     }
+    Ok(())
 }
