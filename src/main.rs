@@ -1,12 +1,13 @@
-// All code is simply copied from "the book": https://doc.rust-lang.org/stable/book/title-page.html
+// Code is mostly copied from "the book": https://doc.rust-lang.org/stable/book/title-page.html
 // Thanks to Steve Klabnik and Carol Nichols, and the Rust Community for a very enjoyable learning experience
 
-use std::{io, collections::HashMap};
+use std::{env,io, collections::HashMap};
+
 
 mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapter6;
 mod chapter8; mod chapter9; mod chapter10;
 
-pub mod garden; pub mod aggregator;
+pub mod garden; pub mod aggregator; pub mod minigrep;
 
 use crate::garden::vegetables::Asparagus;
 use aggregator::{Summary, Tweet, NewsArticle};
@@ -152,6 +153,16 @@ fn main() -> Result<(), String> {
         println!("New article available! {}", article.summarize());
 
         chapter10::main2();
+    } else if branch == 11 {
+        println!("run tests with 'cargo test'");
+    } else if branch == 12 {
+        let args: Vec<String> = env::args().collect();
+
+        let query = &args[1];
+        let file_path = &args[2];
+
+        println!("Searching for {}", query);
+        println!("In file {}", file_path);
     } else if 1 <= branch && branch <= 20 {
         println!("Unimplemented chapter: {}. Exiting.", branch);
     } else {
