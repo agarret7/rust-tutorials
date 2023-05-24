@@ -1,7 +1,7 @@
 // Code is mostly copied from "the book": https://doc.rust-lang.org/stable/book/title-page.html
 // Thanks to Steve Klabnik and Carol Nichols, and the Rust Community for a very enjoyable learning experience
 
-use std::{env,io, collections::HashMap};
+use std::{env,io,process, collections::HashMap};
 
 
 mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapter6;
@@ -11,7 +11,6 @@ pub mod garden; pub mod aggregator; pub mod minigrep;
 
 use crate::garden::vegetables::Asparagus;
 use aggregator::{Summary, Tweet, NewsArticle};
-
 
 
 fn main() -> Result<(), String> {
@@ -158,11 +157,19 @@ fn main() -> Result<(), String> {
     } else if branch == 12 {
         let args: Vec<String> = env::args().collect();
 
-        let query = &args[1];
-        let file_path = &args[2];
+        // this is called a "closure"
+        let config = minigrep::Config::build(&args).unwrap_or_else(|err| {
+            println!("Problem parsing arguments: {err}");
+            process::exit(1);
+        });
 
-        println!("Searching for {}", query);
-        println!("In file {}", file_path);
+        println!("Searching for {}", config.query);
+        println!("In file {}", config.file_path);
+        
+        if let Err(e) = minigrep::run(config) {
+            println!("Application error: {e}");
+            process::exit(1);
+        }
     } else if 1 <= branch && branch <= 20 {
         println!("Unimplemented chapter: {}. Exiting.", branch);
     } else {
