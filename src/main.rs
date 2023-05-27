@@ -155,10 +155,8 @@ fn main() -> Result<(), String> {
     } else if branch == 11 {
         println!("run tests with 'cargo test'");
     } else if branch == 12 {
-        let args: Vec<String> = env::args().collect();
-
         // this is called a "closure"
-        let config = minigrep::Config::build(&args).unwrap_or_else(|err| {
+        let config = minigrep::Config::build(env::args()).unwrap_or_else(|err| {
             eprintln!("Problem parsing arguments: {err}");
             process::exit(1);
         });
