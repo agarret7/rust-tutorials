@@ -7,7 +7,7 @@ use std::{env,io,process, collections::HashMap};
 mod chapter1; mod chapter2; mod chapter3; mod chapter4; mod chapter5; mod chapter6;
 mod chapter8; mod chapter9; mod chapter10;
 
-pub mod garden; pub mod aggregator; pub mod minigrep;
+pub mod garden; pub mod aggregator; pub mod minigrep; pub mod iters_and_closures;
 
 use crate::garden::vegetables::Asparagus;
 use aggregator::{Summary, Tweet, NewsArticle};
@@ -170,6 +170,9 @@ fn main() -> Result<(), String> {
             eprintln!("Application error: {e}");
             process::exit(1);
         }
+    } else if branch == 13 {
+        iters_and_closures::run();
+        // todo: replace me
     } else if 1 <= branch && branch <= 20 {
         println!("Unimplemented chapter: {}. Exiting.", branch);
     } else {
